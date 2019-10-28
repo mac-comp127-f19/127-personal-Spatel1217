@@ -1,6 +1,5 @@
-package activityStartCode.stringPractice;
+package stringPractice;
 
-import activityStartCode.stringPractice.UppercaseFirstLetter;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

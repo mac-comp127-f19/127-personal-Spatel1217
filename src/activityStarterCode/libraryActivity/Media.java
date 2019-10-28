@@ -1,4 +1,4 @@
-package libraryActivity;
+package activityStarterCode.libraryActivity;
 
 public interface Media {
 

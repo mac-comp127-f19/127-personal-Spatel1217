@@ -1,6 +1,5 @@
-package activityStartCode.stringPractice;
+package stringPractice;
 
-import activityStartCode.stringPractice.MakeEmphatic;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

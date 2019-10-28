@@ -4,7 +4,7 @@
  *
  * @author Abby Marsh Fall 2019
  */
-package libraryActivity;
+package activityStarterCode.libraryActivity;
 
 public class Book implements Media{
 

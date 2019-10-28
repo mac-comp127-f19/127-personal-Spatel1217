@@ -7,7 +7,7 @@
  * Partner: ltran2@macalester.edu
  * Partner: spatel@macalester.edu
  */
-package libraryActivity;
+package activityStarterCode.libraryActivity;
 
 import java.util.ArrayList;
 import java.util.List;
