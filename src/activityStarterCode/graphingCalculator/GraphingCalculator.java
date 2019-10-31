@@ -3,6 +3,7 @@ package activityStarterCode.graphingCalculator;
 import comp127graphics.CanvasWindow;
 import comp127graphics.Line;
 import comp127graphics.Point;
+import comp127graphics.ui.Button;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ public class GraphingCalculator {
     private double xmin, xmax, step;  // computed from origin + scale + size
     private double animationParameter;
     private Line xaxis, yaxis;
+    private Button  zoomIn, zoomOut;
+    private Boolean animating = true;
+    private double animationSpeed = .01;
 
     /**
      * Creates a new graphing calculator with its own window.
@@ -24,6 +28,7 @@ public class GraphingCalculator {
      * @param height  Window height
      */
     public GraphingCalculator(int width, int height) {
+
         canvas = new CanvasWindow("Graphing Calculator", width, height);
         plots = new ArrayList<>();
 
@@ -35,9 +40,31 @@ public class GraphingCalculator {
 
         coordinatesChanged();
 
-        canvas.animate(() ->
-            setAnimationParameter(
-                getAnimationParameter() + 0.01));
+
+
+         zoomIn = new Button("Zoom In");
+         zoomOut = new Button("Zoom Out");
+        canvas.add(zoomIn, 0, 0);
+        canvas.add(zoomOut, canvas.getWidth() * .1, 0);
+        zoomIn.onClick(() -> setScale(getScale() * 1.5));
+        zoomOut.onClick(() -> setScale(getScale() / 1.5));
+
+        canvas.animate(() -> {
+            if (animating)
+                    setAnimationParameter(
+                            getAnimationParameter() + animationSpeed);
+                });
+
+        canvas.onDrag(event -> {
+                    setAnimationParameter((
+                            event.getDelta().getX()  / width) + getAnimationParameter());
+            animationSpeed = ((event.getDelta().getX()  / width) + animationSpeed) / 2;
+            
+        });
+
+        canvas.onMouseDown(event1 -> animating = false);
+        canvas.onMouseUp(event2 -> animating = true);
+
     }
 
     /**
@@ -188,5 +215,17 @@ public class GraphingCalculator {
 //            int thing = i;
 //            calc.show((x, t) -> Math.tan(Math.sin(t * -x / thing)));
 //        }
+
+        for (int n = 1; n < 12; n++) {
+            double base = n * 0.1 + 1.5;
+            calc.show((x, t) -> {
+                double result = 0;
+                for (int i = 1; i < 20; i++) {
+                    result += Math.sin(x * Math.pow(base, i) - t * i * 3)
+                            / Math.pow(base, i);
+                }
+                return result;
+            });
+        }
     }
 }
